@@ -53,8 +53,8 @@ export const loginUser = async (req: Request, res: Response) => {
     }
 
     // Generate a token and send it in the response
-    const token = generateAuthToken(user);
-
+    //const token = generateAuthToken(user);
+    const token = "Token";
     res.status(200).json({ token, user });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
@@ -71,6 +71,7 @@ export const logoutUser = async (req: Request, res: Response) => {
 // Get user profile
 export const getUserProfile = async (req: Request, res: Response) => {
   try {
+
     const user = await User.findById(req.user._id).select('-password');
 
     if (!user) {

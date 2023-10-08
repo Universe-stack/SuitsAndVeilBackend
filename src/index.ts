@@ -8,6 +8,8 @@ import multer from "multer";
 import path from "path";
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import listRouter from './routes/listRouter';
+import weddingRouter from "./routes/WeddingRouter";
 
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = dirname(__filename);
@@ -43,9 +45,8 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 
-// app.use("/auth",authRoute);
-// app.use("/notes",notesRoute);
-// app.use("/users",userRoute);
+app.use("/lists",listRouter);
+app.use("/wedding",weddingRouter)
 
 app.get("/", (req:Request,res:Response)=>{
     res.send("Hello from Express!!")

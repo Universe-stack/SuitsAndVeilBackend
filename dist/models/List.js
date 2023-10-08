@@ -29,7 +29,7 @@ const listSchema = new mongoose_1.Schema({
     items: [{ type: String }],
     collaborators: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'User' }],
     amount: { type: Number, default: 0 },
-    createdBy: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User', required: true },
+    createdBy: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User' },
     createdAt: { type: Date, default: Date.now },
     // Define other fields as needed
 });

@@ -16,4 +16,4 @@ listRouter.put('/lists/:id', List_1.updateList);
 // Delete a list by ID
 listRouter.delete('/lists/:id', List_1.deleteList);
 exports.default = listRouter;
-//# sourceMappingURL=List.js.map
+//# sourceMappingURL=listRouter.js.map

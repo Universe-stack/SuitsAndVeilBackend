@@ -15,7 +15,7 @@ const listSchema: Schema = new Schema({
   items: [{ type: String }], // An array of items (strings) in the list
   collaborators: [{ type: Schema.Types.ObjectId, ref: 'User' }], // An array of User references
   amount: { type: Number, default: 0 }, // Default value is 0
-  createdBy: { type: Schema.Types.ObjectId, ref: 'User', required: true }, // Reference to a User
+  createdBy: { type: Schema.Types.ObjectId, ref: 'User'}, // Reference to a User
   createdAt: { type: Date, default: Date.now },
   // Define other fields as needed
 });
