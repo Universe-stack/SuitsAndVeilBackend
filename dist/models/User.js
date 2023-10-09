@@ -22,8 +22,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
+const passport_local_mongoose_1 = __importDefault(require("passport-local-mongoose"));
 var UserRole;
 (function (UserRole) {
     UserRole["Admin"] = "admin";
@@ -43,5 +47,6 @@ const userSchema = new mongoose_1.Schema({
     profileImage: { type: String }, // Store the image URL or path
     // Define other fields as needed
 });
+userSchema.plugin(passport_local_mongoose_1.default);
 exports.default = mongoose_1.default.model('User', userSchema);
 //# sourceMappingURL=User.js.map

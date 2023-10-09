@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
+import passportLocalMongoose from 'passport-local-mongoose';
 
 enum UserRole {
     Admin = 'admin',
@@ -32,4 +33,5 @@ const userSchema: Schema = new Schema({
   // Define other fields as needed
 });
 
+userSchema.plugin(passportLocalMongoose)
 export default mongoose.model<IUser>('User', userSchema);

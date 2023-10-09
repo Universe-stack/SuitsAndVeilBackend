@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUser = exports.updateUser = exports.getUserById = exports.getAllUsers = exports.updateUserProfile = exports.getUserProfile = exports.logoutUser = exports.loginUser = exports.registerUser = void 0;
 const User_1 = __importDefault(require("../models/User"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const authMiddleware_1 = require("../middlewares/authMiddleware");
 // User registration
 const registerUser = async (req, res) => {
     try {
@@ -52,12 +53,12 @@ const loginUser = async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
         // Generate a token and send it in the response
-        //const token = generateAuthToken(user);
-        const token = "Token";
+        const token = (0, authMiddleware_1.generateAuthToken)(user);
         res.status(200).json({ token, user });
     }
     catch (error) {
         res.status(500).json({ message: 'Server error' });
+        console.log(error);
     }
 };
 exports.loginUser = loginUser;
