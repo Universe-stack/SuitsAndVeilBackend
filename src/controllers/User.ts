@@ -1,11 +1,13 @@
 import { Request, Response } from 'express';
 import User, { IUser } from '../models/User';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 // User registration
 export const registerUser = async (req: Request, res: Response) => {
   try {
-    const { username, password } = req.body;
+    const { username, password,name,role,email } = req.body;
+    console.log(username,password)
 
     // Check if the username is already taken
     const existingUser = await User.findOne({ username });
@@ -22,6 +24,9 @@ export const registerUser = async (req: Request, res: Response) => {
     const newUser: IUser = new User({
       username,
       password: hashedPassword,
+      name,
+      role,
+      email
     });
 
     // Save the user to the database
@@ -30,6 +35,7 @@ export const registerUser = async (req: Request, res: Response) => {
     res.status(201).json(savedUser);
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
+    console.log(error)
   }
 };
 

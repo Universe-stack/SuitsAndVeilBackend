@@ -6,7 +6,7 @@ export const createList = async (req: Request, res: Response) => {
   try {
     // Get user ID from the authenticated user
     //const userId = req.user._id;
-    const userId ="Temporary";
+    const userId =1;
 
     // Extract data from the request body
     const { name, items, collaborators, amount } = req.body;
@@ -17,15 +17,32 @@ export const createList = async (req: Request, res: Response) => {
       items,
       collaborators,
       amount,
-      createdBy: userId,
     });
+    //createdBy: userId, This would go into the above object once authentication is implemented
 
     // Save the list to the database
     const savedList = await newList.save();
 
     res.status(201).json(savedList);
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: 'Server error' });
+  }
+};
+
+// Get all lists
+export const getAllList = async (req: Request, res: Response) => {
+  try {
+    // Find all lists
+    const lists = await List.find({});
+
+    if (!lists) {
+      return res.status(404).json({ message: 'List not found' });
+    }
+    res.status(200).json(lists);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+    console.log(error);
   }
 };
 
@@ -33,6 +50,7 @@ export const createList = async (req: Request, res: Response) => {
 export const getList = async (req: Request, res: Response) => {
   try {
     const listId = req.params.id;
+    console.log(listId)
 
     // Find the list by ID
     const list = await List.findById(listId);
@@ -40,12 +58,13 @@ export const getList = async (req: Request, res: Response) => {
     if (!list) {
       return res.status(404).json({ message: 'List not found' });
     }
-
     res.status(200).json(list);
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
+    console.log(error);
   }
 };
+
 
 // Update a list by ID
 export const updateList = async (req: Request, res: Response) => {

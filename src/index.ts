@@ -10,7 +10,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import listRouter from './routes/listRouter';
 import weddingRouter from "./routes/WeddingRouter";
-
+import userRouter from "./routes/userRouter";
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = dirname(__filename);
 
@@ -46,7 +46,8 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use("/lists",listRouter);
-app.use("/wedding",weddingRouter)
+app.use("/wedding",weddingRouter);
+app.use("/user",userRouter)
 
 app.get("/", (req:Request,res:Response)=>{
     res.send("Hello from Express!!")

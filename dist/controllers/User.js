@@ -9,7 +9,8 @@ const bcryptjs_1 = __importDefault(require("bcryptjs"));
 // User registration
 const registerUser = async (req, res) => {
     try {
-        const { username, password } = req.body;
+        const { username, password, name, role, email } = req.body;
+        console.log(username, password);
         // Check if the username is already taken
         const existingUser = await User_1.default.findOne({ username });
         if (existingUser) {
@@ -22,6 +23,9 @@ const registerUser = async (req, res) => {
         const newUser = new User_1.default({
             username,
             password: hashedPassword,
+            name,
+            role,
+            email
         });
         // Save the user to the database
         const savedUser = await newUser.save();
@@ -29,6 +33,7 @@ const registerUser = async (req, res) => {
     }
     catch (error) {
         res.status(500).json({ message: 'Server error' });
+        console.log(error);
     }
 };
 exports.registerUser = registerUser;

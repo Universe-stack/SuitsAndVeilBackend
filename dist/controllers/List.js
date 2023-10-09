@@ -3,14 +3,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteList = exports.updateList = exports.getList = exports.createList = void 0;
+exports.deleteList = exports.updateList = exports.getList = exports.getAllList = exports.createList = void 0;
 const List_1 = __importDefault(require("../models/List"));
 // Create a new list
 const createList = async (req, res) => {
     try {
         // Get user ID from the authenticated user
         //const userId = req.user._id;
-        const userId = "Temporary";
+        const userId = 1;
         // Extract data from the request body
         const { name, items, collaborators, amount } = req.body;
         // Create a new list
@@ -19,21 +19,39 @@ const createList = async (req, res) => {
             items,
             collaborators,
             amount,
-            createdBy: userId,
         });
+        //createdBy: userId, This would go into the above object once authentication is implemented
         // Save the list to the database
         const savedList = await newList.save();
         res.status(201).json(savedList);
     }
     catch (error) {
+        console.log(error);
         res.status(500).json({ message: 'Server error' });
     }
 };
 exports.createList = createList;
+// Get all lists
+const getAllList = async (req, res) => {
+    try {
+        // Find all lists
+        const lists = await List_1.default.find({});
+        if (!lists) {
+            return res.status(404).json({ message: 'List not found' });
+        }
+        res.status(200).json(lists);
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Server error' });
+        console.log(error);
+    }
+};
+exports.getAllList = getAllList;
 // Get a list by ID
 const getList = async (req, res) => {
     try {
         const listId = req.params.id;
+        console.log(listId);
         // Find the list by ID
         const list = await List_1.default.findById(listId);
         if (!list) {
@@ -43,6 +61,7 @@ const getList = async (req, res) => {
     }
     catch (error) {
         res.status(500).json({ message: 'Server error' });
+        console.log(error);
     }
 };
 exports.getList = getList;

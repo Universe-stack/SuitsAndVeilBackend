@@ -8,12 +8,14 @@ const List_1 = require("../controllers/List");
 //import { authenticateUser } from '../middlewares/authMiddleware';
 const listRouter = express_1.default.Router();
 // Create a new list
-listRouter.post('/lists', List_1.createList);
+listRouter.post("/new", List_1.createList);
+// get all lists
+listRouter.get("/", List_1.getAllList);
 // Get a list by ID
-listRouter.get('/lists/:id', List_1.getList);
+listRouter.get("/:id", List_1.getList);
 // Update a list by ID
-listRouter.put('/lists/:id', List_1.updateList);
+listRouter.put("/:id", List_1.updateList);
 // Delete a list by ID
-listRouter.delete('/lists/:id', List_1.deleteList);
+listRouter.delete("/:id", List_1.deleteList);
 exports.default = listRouter;
 //# sourceMappingURL=listRouter.js.map

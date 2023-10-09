@@ -6,24 +6,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const User_1 = require("../controllers/User");
 //import { authenticateUser, authenticateAdmin } from '../middlewares/authMiddleware';
-const router = express_1.default.Router();
+const userRouter = express_1.default.Router();
 // User registration route
-router.post('/register', User_1.registerUser);
+userRouter.post('/register', User_1.registerUser);
 // User login route
-router.post('/login', User_1.loginUser);
+userRouter.post('/login', User_1.loginUser);
 // User logout route
-router.post('/logout', User_1.logoutUser);
+userRouter.post('/logout', User_1.logoutUser);
 // Get user profile route
-router.get('/profile', User_1.getUserProfile);
+userRouter.get('/profile', User_1.getUserProfile);
 // Update user profile route
-router.put('/profile', User_1.updateUserProfile);
+userRouter.put('/profile', User_1.updateUserProfile);
 // Get all users route (admin only)
-router.get('/all', User_1.getAllUsers);
+userRouter.get('/all', User_1.getAllUsers);
 // Get user by ID route (admin only)
-router.get('/:id', User_1.getUserById);
+userRouter.get('/:id', User_1.getUserById);
 // Update user by ID route (admin only)
-router.put('/:id', User_1.updateUser);
+userRouter.put('/:id', User_1.updateUser);
 // Delete user by ID route (admin only)
-router.delete('/:id', User_1.deleteUser);
-exports.default = router;
-//# sourceMappingURL=User.js.map
+userRouter.delete('/:id', User_1.deleteUser);
+exports.default = userRouter;
+//# sourceMappingURL=userRouter.js.map

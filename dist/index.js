@@ -12,6 +12,7 @@ const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
 const listRouter_1 = __importDefault(require("./routes/listRouter"));
 const WeddingRouter_1 = __importDefault(require("./routes/WeddingRouter"));
+const userRouter_1 = __importDefault(require("./routes/userRouter"));
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = dirname(__filename);
 //call dependencies
@@ -40,6 +41,7 @@ app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.json());
 app.use("/lists", listRouter_1.default);
 app.use("/wedding", WeddingRouter_1.default);
+app.use("/user", userRouter_1.default);
 app.get("/", (req, res) => {
     res.send("Hello from Express!!");
 });
