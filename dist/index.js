@@ -13,6 +13,8 @@ const path_1 = __importDefault(require("path"));
 const listRouter_1 = __importDefault(require("./routes/listRouter"));
 const WeddingRouter_1 = __importDefault(require("./routes/WeddingRouter"));
 const userRouter_1 = __importDefault(require("./routes/userRouter"));
+const paymentRouter_1 = __importDefault(require("./routes/paymentRouter"));
+const passport_1 = __importDefault(require("passport"));
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = dirname(__filename);
 //call dependencies
@@ -39,9 +41,11 @@ mongoose_1.default.connection.on("connected", () => {
 app.use((0, cors_1.default)());
 app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.json());
+app.use(passport_1.default.initialize());
 app.use("/lists", listRouter_1.default);
 app.use("/wedding", WeddingRouter_1.default);
 app.use("/user", userRouter_1.default);
+app.use("/payments", paymentRouter_1.default);
 app.get("/", (req, res) => {
     res.send("Hello from Express!!");
 });

@@ -11,7 +11,7 @@
       "paths": {
           "*":["*"]
       },
-      "types": ["node", "@types/passport", "@types/passport-local", "@types/passport-jwt", "@types/mongoose"]
+      "types": ["node", "@types/passport", "@types/passport-local", "@types/passport-jwt"]
   },
   "include": ["src/**/*.ts", "typings/**/*.d.ts"],
   "exclude": ["node_modules"]

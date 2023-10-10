@@ -78,7 +78,8 @@ export const logoutUser = async (req: Request, res: Response) => {
 // Get user profile
 export const getUserProfile = async (req: Request, res: Response) => {
   try {
-    const user = await User.findById(req.user._id).select('-password');
+    //const user = await User.findById(req.user._id).select('-password');
+    const user = await User.findById((req.user as { _id: string })._id).select('-password');
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
@@ -94,7 +95,8 @@ export const getUserProfile = async (req: Request, res: Response) => {
 export const updateUserProfile = async (req: Request, res: Response) => {
     try {
         // Find the user by their ID (req.user._id)
-        const user = await User.findById(req.user._id);
+       // const user = await User.findById(req.user._id);
+       const user = await User.findById((req.user as { _id: string })._id);
         if (!user) {
           return res.status(404).json({ message: 'User not found' });
         }
@@ -119,7 +121,7 @@ export const updateUserProfile = async (req: Request, res: Response) => {
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
     // Implement logic to retrieve all users from the database (e.g., User.find({}))
-    const users = await User.find();
+    const users = await User.find({});
     if (!users) {
         // If the user with the specified ID is not found, respond with a 404 status
         return res.status(404).json({ message: 'Users not found'});

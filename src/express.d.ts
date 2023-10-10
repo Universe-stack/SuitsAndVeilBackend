@@ -1,8 +1,7 @@
 // express.d.ts
 
 declare namespace Express {
-    interface Request {
-      user?: any; // Define the user property with an appropriate type
-    }
+  interface Request {
+    user?: User | undefined; // Define the user property with the same type
   }
-  
+}

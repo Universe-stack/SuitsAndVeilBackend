@@ -11,6 +11,8 @@ import { dirname } from 'path';
 import listRouter from './routes/listRouter';
 import weddingRouter from "./routes/WeddingRouter";
 import userRouter from "./routes/userRouter";
+import paymentRouter from "./routes/paymentRouter";
+import passport from "passport"
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = dirname(__filename);
 
@@ -44,10 +46,12 @@ mongoose.connection.on("connected", ()=>{
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
+app.use(passport.initialize());
 
 app.use("/lists",listRouter);
 app.use("/wedding",weddingRouter);
-app.use("/user",userRouter)
+app.use("/user",userRouter);
+app.use("/payments",paymentRouter)
 
 app.get("/", (req:Request,res:Response)=>{
     res.send("Hello from Express!!")

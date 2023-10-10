@@ -72,6 +72,7 @@ exports.logoutUser = logoutUser;
 // Get user profile
 const getUserProfile = async (req, res) => {
     try {
+        //const user = await User.findById(req.user._id).select('-password');
         const user = await User_1.default.findById(req.user._id).select('-password');
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
@@ -87,6 +88,7 @@ exports.getUserProfile = getUserProfile;
 const updateUserProfile = async (req, res) => {
     try {
         // Find the user by their ID (req.user._id)
+        // const user = await User.findById(req.user._id);
         const user = await User_1.default.findById(req.user._id);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
@@ -109,7 +111,7 @@ exports.updateUserProfile = updateUserProfile;
 const getAllUsers = async (req, res) => {
     try {
         // Implement logic to retrieve all users from the database (e.g., User.find({}))
-        const users = await User_1.default.find();
+        const users = await User_1.default.find({});
         if (!users) {
             // If the user with the specified ID is not found, respond with a 404 status
             return res.status(404).json({ message: 'Users not found' });

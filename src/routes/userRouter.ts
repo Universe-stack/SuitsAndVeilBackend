@@ -1,6 +1,6 @@
 import express from 'express';
 import { registerUser, loginUser, logoutUser, getUserProfile, updateUserProfile, getAllUsers, getUserById, updateUser, deleteUser } from '../controllers/User';
-//import { authenticateUser, authenticateAdmin } from '../middlewares/authMiddleware';
+import { verifyUser,verifyAdmin,verifyVendor } from '../middlewares/authMiddleware';
 
 const userRouter = express.Router();
 
@@ -20,7 +20,7 @@ userRouter.get('/profile', getUserProfile);
 userRouter.put('/profile', updateUserProfile);
 
 // Get all users route (admin only)
-userRouter.get('/all', getAllUsers);
+userRouter.get('/all',verifyAdmin, getAllUsers);
 
 // Get user by ID route (admin only)
 userRouter.get('/:id', getUserById);
