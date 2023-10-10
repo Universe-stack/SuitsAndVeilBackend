@@ -1,11 +1,10 @@
 import { Request, Response } from 'express';
 import Wedding, { IWedding } from '../models/Wedding'; // Import the Wedding model
-
+import mongoose from "mongoose";
 // Create a new wedding
 export const createWedding = async (req: Request, res: Response) => {
   try {
-    //const userId = req.user._id;
-    const userId ="Temporary";
+    const userId = new mongoose.Types.ObjectId(req.user._id.toString());
 
     const { brideName, groomName,weddingDate,location,guestCount,budget, planner,vendors } = req.body;
     // Create a new list
@@ -26,6 +25,7 @@ export const createWedding = async (req: Request, res: Response) => {
 
     res.status(201).json(createdWedding); // Respond with the created wedding data
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: 'Server error' });
   }
 };

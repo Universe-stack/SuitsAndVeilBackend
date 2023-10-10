@@ -5,11 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteWedding = exports.updateWedding = exports.getWedding = exports.createWedding = void 0;
 const Wedding_1 = __importDefault(require("../models/Wedding")); // Import the Wedding model
+const mongoose_1 = __importDefault(require("mongoose"));
 // Create a new wedding
 const createWedding = async (req, res) => {
     try {
-        //const userId = req.user._id;
-        const userId = "Temporary";
+        const userId = new mongoose_1.default.Types.ObjectId(req.user._id.toString());
         const { brideName, groomName, weddingDate, location, guestCount, budget, planner, vendors } = req.body;
         // Create a new list
         const newWedding = new Wedding_1.default({
@@ -28,6 +28,7 @@ const createWedding = async (req, res) => {
         res.status(201).json(createdWedding); // Respond with the created wedding data
     }
     catch (error) {
+        console.log(error);
         res.status(500).json({ message: 'Server error' });
     }
 };

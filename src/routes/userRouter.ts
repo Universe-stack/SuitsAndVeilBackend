@@ -11,24 +11,24 @@ userRouter.post('/register', registerUser);
 userRouter.post('/login', loginUser);
 
 // User logout route
-userRouter.post('/logout', logoutUser);
+userRouter.post('/logout', verifyUser, logoutUser);
 
 // Get user profile route
-userRouter.get('/profile', getUserProfile);
+userRouter.get('/profile',verifyUser, getUserProfile);
 
 // Update user profile route
-userRouter.put('/profile', updateUserProfile);
+userRouter.put('/profile',verifyUser, updateUserProfile);
 
 // Get all users route (admin only)
 userRouter.get('/all',verifyAdmin, getAllUsers);
 
 // Get user by ID route (admin only)
-userRouter.get('/:id', getUserById);
+userRouter.get('/:id',verifyAdmin, getUserById);
 
 // Update user by ID route (admin only)
-userRouter.put('/:id', updateUser);
+userRouter.put('/:id',verifyAdmin, updateUser);
 
 // Delete user by ID route (admin only)
-userRouter.delete('/:id', deleteUser);
+userRouter.delete('/:id', verifyAdmin, deleteUser);
 
 export default userRouter;

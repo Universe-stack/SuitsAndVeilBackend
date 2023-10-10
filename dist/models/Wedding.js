@@ -27,12 +27,12 @@ const mongoose_1 = __importStar(require("mongoose"));
 const weddingSchema = new mongoose_1.Schema({
     brideName: { type: String, required: true },
     groomName: { type: String, required: true },
-    weddingDate: { type: Date, required: true },
+    weddingDate: { type: Date },
     location: { type: String, required: true },
     guestCount: { type: Number, required: true },
     budget: { type: Number, required: true },
-    planner: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User', required: true },
-    vendors: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Vendor' }], // Array of Vendor references
+    planner: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'User' }],
+    vendors: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Vendor' }] // Array of Vendor references
     // Define other fields as needed
 });
 exports.default = mongoose_1.default.model('Wedding', weddingSchema);

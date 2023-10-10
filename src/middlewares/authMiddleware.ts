@@ -25,10 +25,7 @@ export const generateAuthToken = (user) => {
   };
   // Sign the JWT token with the payload
   return jwt.sign(payload, process.env.JWT_KEY, { expiresIn: 3600 });
-};
-
-
-
+}
 
 // Middleware function to verify an ordinary user with a JWT
 export const verifyUser = passport.authenticate('jwt', { session: false });
