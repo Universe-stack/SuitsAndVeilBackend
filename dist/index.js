@@ -63,4 +63,5 @@ app.listen(8800, () => {
     connect();
     console.log("connected to backend");
 });
+exports.default = app;
 //# sourceMappingURL=index.js.map

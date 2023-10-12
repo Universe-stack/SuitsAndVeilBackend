@@ -7,19 +7,21 @@ import {
 } from '../controllers/Wedding'; // Import your controller functions
 
 import {verifyUser,verifyAdmin } from '../middlewares/authMiddleware'; // Import authentication middleware if needed
+import { corsMiddleware, corsWithOptionsMiddleware } from './cors';
+
 
 const weddingRouter = express.Router();
 
 // Create a new wedding
-weddingRouter.post('/', verifyUser, createWedding);
+weddingRouter.post('/', corsMiddleware, verifyUser, createWedding);
 
 // Get a specific wedding by ID
-weddingRouter.get('/:id',verifyUser, getWedding);
+weddingRouter.get('/:id', corsMiddleware, verifyUser, getWedding);
 
 // Update a wedding by ID
-weddingRouter.put('/:id',verifyUser, updateWedding);
+weddingRouter.put('/:id',corsMiddleware,verifyUser, updateWedding);
 
 // Delete a wedding by ID
-weddingRouter.delete('/:id', verifyUser, deleteWedding);
+weddingRouter.delete('/:id', corsMiddleware, verifyUser, deleteWedding);
 
 export default weddingRouter;
