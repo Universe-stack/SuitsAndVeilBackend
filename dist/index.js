@@ -16,10 +16,29 @@ const userRouter_1 = __importDefault(require("./routes/userRouter"));
 const paymentRouter_1 = __importDefault(require("./routes/paymentRouter"));
 const passport_1 = __importDefault(require("passport"));
 // const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
+//const __dirname = dirname(__filename);
+const fs_1 = __importDefault(require("fs"));
+const https_1 = __importDefault(require("https"));
+const options = {
+    key: fs_1.default.readFileSync(path_1.default.join(__dirname, '../bin/private.key')),
+    cert: fs_1.default.readFileSync(path_1.default.join(__dirname, '../bin/certificate.pem'))
+};
 //call dependencies
-const app = (0, express_1.default)();
 dotenv_1.default.config();
+const app = (0, express_1.default)();
+const secureServer = https_1.default.createServer(options, app);
+const secPort = 443;
+secureServer.listen(secPort, () => {
+    console.log(`Secure server listening on port ${secPort}`);
+});
+app.all('*', (req, res, next) => {
+    if (req.secure) {
+        return next();
+    }
+    else {
+        res.redirect(307, 'https://' + req.hostname + ':' + secPort + req.url);
+    }
+});
 app.use('/uploads', express_1.default.static(path_1.default.join(__dirname, 'uploads')));
 //connect db
 const connect = () => {

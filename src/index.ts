@@ -12,15 +12,39 @@ import listRouter from './routes/listRouter';
 import weddingRouter from "./routes/WeddingRouter";
 import userRouter from "./routes/userRouter";
 import paymentRouter from "./routes/paymentRouter";
-import passport from "passport"
+import passport from "passport";
 // const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
+ //const __dirname = dirname(__filename);
+import fs from 'fs'
+import https from 'https';
 
 
 
+
+
+const options = {
+    key: fs.readFileSync(path.join(__dirname, '../bin/private.key')),
+    cert: fs.readFileSync(path.join(__dirname, '../bin/certificate.pem'))
+  };  
 //call dependencies
-const app = express();
 dotenv.config()
+const app = express();
+
+const secureServer = https.createServer(options, app);
+const secPort = 443;
+secureServer.listen(secPort, () => {
+  console.log(`Secure server listening on port ${secPort}`);
+});
+
+
+app.all('*', (req, res, next) => {
+    if (req.secure) {
+      return next();
+    } else {
+      res.redirect(307, 'https://' + req.hostname + ':' + secPort + req.url);
+    }
+  });  
+
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -39,8 +63,6 @@ mongoose.connection.on("disconnected", ()=>{
 mongoose.connection.on("connected", ()=>{
     console.log("mongmongoDB connected")
 })
-
-
 
 //middlewares
 app.use(cors());
